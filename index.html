@@ -219,8 +219,13 @@
     <img src="verifiedbenuecover.jpg" alt="Benue Land Guide Book Cover" onerror="this.src='https://via.placeholder.com/400x600?text=Cover+Image+Missing';">
   </div>
 
+  <form id="userForm">
+    <input type="text" id="userName" placeholder="Enter your full name" required>
+    <input type="tel" id="userPhone" placeholder="Enter your WhatsApp number (e.g., 08012345678)" required>
+  </form>
+
   <div class="download-link">
-    <a class="cta-button" href="free.pdf" download id="downloadBtn">📘 Click here to download PDF</a>
+    <a class="cta-button" href="free.pdf" download id="downloadBtn" style="opacity: 0.5; pointer-events: none;">📘 Enter details above to download PDF</a>
   </div>
 
   <section class="section">
@@ -244,20 +249,52 @@
   </footer>
 
   <script>
-    document.getElementById('downloadBtn').addEventListener('click', function(e) {
+    const userForm = document.getElementById('userForm');
+    const userName = document.getElementById('userName');
+    const userPhone = document.getElementById('userPhone');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    // Enable download button when both fields are filled
+    function checkFormValidity() {
+      if (userName.value.trim() && userPhone.value.trim()) {
+        downloadBtn.style.opacity = '1';
+        downloadBtn.style.pointerEvents = 'auto';
+        downloadBtn.innerHTML = '📘 Click here to download PDF';
+      } else {
+        downloadBtn.style.opacity = '0.5';
+        downloadBtn.style.pointerEvents = 'none';
+        downloadBtn.innerHTML = '📘 Enter details above to download PDF';
+      }
+    }
+
+    userName.addEventListener('input', checkFormValidity);
+    userPhone.addEventListener('input', checkFormValidity);
+
+    downloadBtn.addEventListener('click', function(e) {
       const btn = this;
+      const name = userName.value.trim();
+      const phone = userPhone.value.trim();
+      
+      if (!name || !phone) {
+        e.preventDefault();
+        return;
+      }
       
       // Add downloading animation
       btn.classList.add('downloading');
       btn.innerHTML = '⏳ Downloading...';
       
-      // After download completes (simulated with timeout), redirect to WhatsApp
+      // Create personalized WhatsApp message
+      const message = `My name is ${name}. I will like to see some of your listings of properties in Makurdi`;
+      const whatsappUrl = `https://wa.me/2348154105945?text=${encodeURIComponent(message)}`;
+      
+      // After download completes, redirect to WhatsApp
       setTimeout(() => {
         btn.innerHTML = '✅ Download Complete!';
         
         // Redirect to WhatsApp after a brief delay
         setTimeout(() => {
-          window.open('https://wa.me/2348154105945?text=My%20name%20is%20.......I%20will%20like%20to%20see%20some%20of%20your%20listings%20of%20properties%20in%20Makurdi', '_blank');
+          window.open(whatsappUrl, '_blank');
         }, 1000);
         
         // Reset button after redirect
@@ -265,7 +302,7 @@
           btn.classList.remove('downloading');
           btn.innerHTML = '📘 Click here to download PDF';
         }, 2000);
-      }, 2000); // Simulates download time
+      }, 2000);
     });
   </script>
 </body>
