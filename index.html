@@ -195,16 +195,15 @@
     <p>Fill the short form to get your free PDF and connect with our experts.</p>
   </header>
 
-  <form id="leadForm" action="https://formsubmit.co/benueverified@gmail.com" method="POST" target="_blank">
-    <input type="text" name="name" placeholder="Full Name" required>
-    <input type="text" name="whatsapp" placeholder="WhatsApp Number" required>
-    <select name="interest" required>
+  <form id="leadForm">
+    <input type="text" name="name" id="name" placeholder="Full Name" required>
+    <input type="text" name="whatsapp" id="whatsapp" placeholder="WhatsApp Number" required>
+    <select name="interest" id="interest" required>
       <option value="">I'm interested in...</option>
       <option value="Buying Land">Buying Land</option>
       <option value="Selling Property">Selling Property</option>
       <option value="Both">Both</option>
     </select>
-    <input type="hidden" name="_captcha" value="false">
     <button type="submit">Submit & Get PDF</button>
   </form>
 
@@ -236,18 +235,47 @@
   </div>
 
   <footer>
-    &copy; 2025 VerifiedBenue Property Hub · registered under Skyflexa Innovations RC: BN7819252 
+    &copy; 2025 VerifiedBenue Property Hub · registered under Skyflexa Innovations RC: BN7819252
   </footer>
 
   <script>
     const form = document.getElementById('leadForm');
     const confirmation = document.getElementById('confirmation');
 
-    form.addEventListener('submit', function(e) {
-      setTimeout(() => {
-        confirmation.classList.remove('hidden');
-        form.style.display = 'none';
-      }, 3000); // wait 3 seconds after submission before revealing download
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const whatsapp = document.getElementById('whatsapp').value;
+      const interest = document.getElementById('interest').value;
+
+      const webhookUrl = 'https://formsubmit.co/ajax/benueverified@gmail.com';
+      const formData = {
+        name,
+        whatsapp,
+        interest,
+        _captcha: false
+      };
+
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+          confirmation.classList.remove('hidden');
+          form.style.display = 'none';
+        } else {
+          alert('Submission failed. Please try again.');
+        }
+      } catch (error) {
+        alert('Something went wrong. Please try again.');
+      }
     });
   </script>
 </body>
