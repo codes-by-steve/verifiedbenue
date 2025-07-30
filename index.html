@@ -133,7 +133,7 @@
 
     .book-preview {
       text-align: center;
-      margin: 2rem auto;
+      margin: 2rem auto 1rem;
       width: 90%;
       max-width: 400px;
     }
@@ -148,6 +148,11 @@
 
     .book-preview img:hover {
       transform: scale(1.04);
+    }
+
+    .download-link {
+      text-align: center;
+      margin-bottom: 2rem;
     }
 
     .footer-cta {
@@ -189,6 +194,10 @@
     <img src="verifiedbenuecover.jpg" alt="Benue Land Guide Book Cover" onerror="this.src='https://via.placeholder.com/400x600?text=Cover+Image+Missing';">
   </div>
 
+  <div class="download-link">
+    <a class="cta-button" href="free.pdf" download>📘 Click here to download PDF</a>
+  </div>
+
   <section class="section">
     <h2>What You'll Learn:</h2>
     <ul class="features">
@@ -208,24 +217,5 @@
   <footer>
      &copy; 2025 VerifiedBenue Property Hub · registered under Skyflexa Innovations RC: BN7819252
   </footer>
-
-  <script>
-    const form = document.getElementById('leadForm');
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const name = document.getElementById('name').value;
-      const whatsapp = document.getElementById('whatsapp').value;
-      const interest = document.getElementById('interest').value;
-
-      const message = encodeURIComponent("I just got a copy of the Verified Benue Land Guide and I would like to have more info.");
-      const whatsappURL = `https://wa.me/2348154105945?text=${message}`;
-      const pdfURL = 'free.pdf';
-
-      window.open(pdfURL, '_blank');
-      window.location.href = whatsappURL;
-    });
-  </script>
 </body>
 </html>
