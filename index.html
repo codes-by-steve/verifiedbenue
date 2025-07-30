@@ -89,6 +89,12 @@
       text-align: center;
       padding: 1rem;
       font-size: 1.1rem;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .cta-button {
@@ -226,7 +232,7 @@
   </section>
 
   <div class="book-preview">
-    <img src="verifiedbenuecover.jpg" alt="Benue Land Guide Book Cover">
+    <img src="your-cover-image.jpg" alt="Benue Land Guide Book Cover">
   </div>
 
   <div class="footer-cta">
@@ -238,9 +244,12 @@
     &copy; 2025 VerifiedBenue Property Hub · registered under Skyflexa Innovations RC: BN7819252
   </footer>
 
+  <audio id="dingSound" src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.wav" preload="auto"></audio>
+
   <script>
     const form = document.getElementById('leadForm');
     const confirmation = document.getElementById('confirmation');
+    const dingSound = document.getElementById('dingSound');
 
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -249,20 +258,16 @@
       const whatsapp = document.getElementById('whatsapp').value;
       const interest = document.getElementById('interest').value;
 
-      const webhookUrl = 'https://formsubmit.co/ajax/benueverified@gmail.com';
+      const webhookUrl = 'https://sheetdb.io/api/v1/aby8lyfkp8e3k';
       const formData = {
-        name,
-        whatsapp,
-        interest,
-        _captcha: false
+        data: [{ name, whatsapp, interest }]
       };
 
       try {
         const response = await fetch(webhookUrl, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify(formData)
         });
@@ -270,6 +275,7 @@
         if (response.ok) {
           confirmation.classList.remove('hidden');
           form.style.display = 'none';
+          dingSound.play();
         } else {
           alert('Submission failed. Please try again.');
         }
