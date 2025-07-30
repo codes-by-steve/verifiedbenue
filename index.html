@@ -46,6 +46,51 @@
       margin: auto;
     }
 
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 90%;
+      margin: 2rem auto;
+    }
+
+    form input, form select {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    form button {
+      background-color: var(--gold);
+      color: black;
+      border: none;
+      padding: 0.9rem 1.5rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    form button:hover {
+      background-color: #e0ac30;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .success-msg {
+      text-align: center;
+      padding: 1rem;
+      font-size: 1.1rem;
+    }
+
     .cta-button {
       background: var(--gold);
       color: #000;
@@ -138,18 +183,8 @@
       header h1 {
         font-size: 1.6rem;
       }
-
       header p, .footer-cta p {
         font-size: 1rem;
-      }
-
-      .cta-button {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-      }
-
-      .section h2 {
-        font-size: 1.4rem;
       }
     }
   </style>
@@ -157,9 +192,28 @@
 <body>
   <header>
     <h1>Download the Verified Benue Land Buyer's Guide</h1>
-    <p>Learn how to buy land safely in Makurdi & avoid costly mistakes.</p>
-    <a class="cta-button" id="downloadBtn" href="VERIFIEDBENUELANDBUYERGUIDE.pdf" download>📘 Download Now (PDF)</a>
+    <p>Fill the short form to get your free PDF and connect with our experts.</p>
   </header>
+
+  <form id="leadForm" action="https://formsubmit.co/benueverified@gmail.com" method="POST" target="_blank">
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="text" name="whatsapp" placeholder="WhatsApp Number" required>
+    <select name="interest" required>
+      <option value="">I'm interested in...</option>
+      <option value="Buying Land">Buying Land</option>
+      <option value="Selling Property">Selling Property</option>
+      <option value="Both">Both</option>
+    </select>
+    <input type="hidden" name="_captcha" value="false">
+    <button type="submit">Submit & Get PDF</button>
+  </form>
+
+  <div class="success-msg hidden" id="confirmation">
+    <p>🎉 Thank you! Your download is ready.</p>
+    <a class="cta-button" href="VERIFIEDBENUELANDBUYERGUIDE.pdf" download>📘 Download Now (PDF)</a>
+    <br><br>
+    <a class="cta-button" href="https://wa.me/2348154105945" target="_blank">💬 Chat With Our Consultant</a>
+  </div>
 
   <section class="section">
     <h2>What You'll Learn:</h2>
@@ -177,8 +231,8 @@
   </div>
 
   <div class="footer-cta">
-    <p>Have questions or want more info?</p>
-    <a class="cta-button" href="https://wa.me/2348154105945" target="_blank">💬 Chat with Our Property Expert</a>
+    <p>Still have questions or want to speak directly?</p>
+    <a class="cta-button" href="https://wa.me/2348154105945" target="_blank">💬 Chat with Us on WhatsApp</a>
   </div>
 
   <footer>
@@ -186,14 +240,14 @@
   </footer>
 
   <script>
-    document.getElementById('downloadBtn').addEventListener('click', function () {
-      const originalText = this.textContent;
-      this.textContent = '📥 Downloading...';
-      this.style.backgroundColor = '#ccc';
+    const form = document.getElementById('leadForm');
+    const confirmation = document.getElementById('confirmation');
+
+    form.addEventListener('submit', function(e) {
       setTimeout(() => {
-        this.textContent = originalText;
-        this.style.backgroundColor = 'var(--gold)';
-      }, 2500);
+        confirmation.classList.remove('hidden');
+        form.style.display = 'none';
+      }, 3000); // wait 3 seconds after submission before revealing download
     });
   </script>
 </body>
