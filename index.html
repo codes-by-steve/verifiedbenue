@@ -81,22 +81,6 @@
       background-color: #e0ac30;
     }
 
-    .hidden {
-      display: none;
-    }
-
-    .success-msg {
-      text-align: center;
-      padding: 1rem;
-      font-size: 1.1rem;
-      animation: fadeIn 0.8s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     .cta-button {
       background: var(--gold);
       color: #000;
@@ -198,7 +182,7 @@
 <body>
   <header>
     <h1>Download the Verified Benue Land Buyer's Guide</h1>
-    <p>Fill the short form below to get your free PDF and connect with our experts.</p>
+    <p>Get your free PDF below and connect with our experts.</p>
   </header>
 
   <div class="book-preview">
@@ -216,68 +200,31 @@
     </ul>
   </section>
 
-  <form id="leadForm">
-    <input type="text" name="name" id="name" placeholder="Full Name" required>
-    <input type="text" name="whatsapp" id="whatsapp" placeholder="WhatsApp Number" required>
-    <select name="interest" id="interest" required>
-      <option value="">I'm interested in...</option>
-      <option value="Buying Land">Buying Land</option>
-      <option value="Selling Property">Selling Property</option>
-      <option value="Both">Both</option>
-    </select>
-    <button type="submit">Submit & Get PDF</button>
-  </form>
-
-  <div class="success-msg hidden" id="confirmation">
-    <p>🎉 Thank you! Your download is ready.</p>
-    <a class="cta-button" href="free.pdf" download>📘 Download Now (PDF)</a>
-    <br><br>
-    <a class="cta-button" href="https://wa.me/2348154105945" target="_blank">💬 Chat With Our Consultant</a>
-  </div>
-
   <div class="footer-cta">
     <p>Still have questions or want to speak directly?</p>
     <a class="cta-button" href="https://wa.me/2348154105945" target="_blank">💬 Chat with Us on WhatsApp</a>
   </div>
 
   <footer>
-    &copy; 2025 VerifiedBenue Property Hub · registered under Skyflexa Innovations RC: BN7819252
+     &copy; 2025 VerifiedBenue Property Hub · registered under Skyflexa Innovations RC: BN7819252
   </footer>
 
   <script>
     const form = document.getElementById('leadForm');
-    const confirmation = document.getElementById('confirmation');
 
-    form.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
 
       const name = document.getElementById('name').value;
       const whatsapp = document.getElementById('whatsapp').value;
       const interest = document.getElementById('interest').value;
 
-      const webhookUrl = 'https://sheetdb.io/api/v1/aby8lyfkp8e3k';
-      const formData = {
-        data: [{ name, whatsapp, interest }]
-      };
+      const message = encodeURIComponent("I just got a copy of the Verified Benue Land Guide and I would like to have more info.");
+      const whatsappURL = `https://wa.me/2348154105945?text=${message}`;
+      const pdfURL = 'free.pdf';
 
-      try {
-        const response = await fetch(webhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        });
-
-        if (response.ok) {
-          confirmation.classList.remove('hidden');
-          form.style.display = 'none';
-        } else {
-          alert('Submission failed. Please check your internet or try again later.');
-        }
-      } catch (error) {
-        alert('Something went wrong. Please try again.');
-      }
+      window.open(pdfURL, '_blank');
+      window.location.href = whatsappURL;
     });
   </script>
 </body>
