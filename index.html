@@ -46,41 +46,6 @@
       margin: auto;
     }
 
-    form {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
-      width: 90%;
-      margin: 2rem auto;
-    }
-
-    form input, form select {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    form button {
-      background-color: var(--gold);
-      color: black;
-      border: none;
-      padding: 0.9rem 1.5rem;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      width: 100%;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
-
-    form button:hover {
-      background-color: #e0ac30;
-    }
-
     .cta-button {
       background: var(--gold);
       color: #000;
@@ -93,11 +58,26 @@
       text-decoration: none;
       transition: all 0.3s ease;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      position: relative;
     }
 
     .cta-button:hover {
       background: #e0ac30;
       transform: scale(1.05);
+    }
+
+    .cta-animation {
+      display: none;
+      margin-top: 1rem;
+      color: var(--green);
+      font-weight: bold;
+      font-size: 1rem;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .section {
@@ -195,7 +175,8 @@
   </div>
 
   <div class="download-link">
-    <a class="cta-button" href="free.pdf" download>📘 Click here to download PDF</a>
+    <a id="downloadBtn" class="cta-button" href="#">📘 Click here to get your free PDF via WhatsApp</a>
+    <div class="cta-animation" id="animationText">Redirecting to WhatsApp...</div>
   </div>
 
   <section class="section">
@@ -217,5 +198,17 @@
   <footer>
      &copy; 2025 VerifiedBenue Property Hub · registered under Skyflexa Innovations RC: BN7819252
   </footer>
+
+  <script>
+    document.getElementById('downloadBtn').addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('animationText').style.display = 'block';
+
+      setTimeout(function() {
+        const message = encodeURIComponent("My name is ___ and I want my free copy of Verified Benue Land Buyer’s Guide.");
+        window.location.href = `https://wa.me/2348154105945?text=${message}`;
+      }, 1200);
+    });
+  </script>
 </body>
 </html>
