@@ -22,6 +22,9 @@
       background: var(--light-bg);
       color: #222;
       line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     header {
@@ -29,15 +32,16 @@
       color: white;
       text-align: center;
       padding: 3rem 1rem 2rem;
+      width: 100%;
     }
 
     header h1 {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       margin-bottom: 0.5rem;
     }
 
     header p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       max-width: 600px;
       margin: auto;
     }
@@ -45,28 +49,30 @@
     .cta-button {
       background: var(--gold);
       color: #000;
-      padding: 0.9rem 1.8rem;
+      padding: 1rem 2rem;
       margin-top: 1.5rem;
       display: inline-block;
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: bold;
-      border-radius: 6px;
+      border-radius: 8px;
       text-decoration: none;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     .cta-button:hover {
       background: #e0ac30;
+      transform: scale(1.05);
     }
 
     .section {
       padding: 2rem 1rem;
       max-width: 850px;
-      margin: auto;
+      text-align: center;
     }
 
     .section h2 {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       margin-bottom: 1rem;
       color: var(--green);
     }
@@ -74,6 +80,7 @@
     .features {
       list-style: none;
       padding: 0;
+      text-align: left;
     }
 
     .features li {
@@ -92,29 +99,32 @@
     .book-preview {
       text-align: center;
       margin: 2rem auto;
+      width: 90%;
+      max-width: 400px;
     }
 
     .book-preview img {
-      max-width: 250px;
       width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+      transition: transform 0.4s ease;
     }
 
     .book-preview img:hover {
-      transform: scale(1.05);
+      transform: scale(1.04);
     }
 
     .footer-cta {
       background: #f1f1f1;
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 2.5rem 1rem;
+      width: 100%;
     }
 
     .footer-cta p {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      margin-bottom: 1.2rem;
     }
 
     footer {
@@ -126,11 +136,20 @@
 
     @media (max-width: 600px) {
       header h1 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
       }
+
+      header p, .footer-cta p {
+        font-size: 1rem;
+      }
+
       .cta-button {
-        padding: 0.7rem 1.2rem;
-        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+      }
+
+      .section h2 {
+        font-size: 1.4rem;
       }
     }
   </style>
@@ -158,22 +177,22 @@
   </div>
 
   <div class="footer-cta">
-    <p>Have questions? Need help securing land?</p>
-    <a class="cta-button" href="https://wa.me/2348154105945" target="_blank">💬 Chat on WhatsApp</a>
+    <p>Have questions or want more info?</p>
+    <a class="cta-button" href="https://wa.me/2348154105945" target="_blank">💬 Chat with Our Property Expert</a>
   </div>
 
   <footer>
-        &copy; 2025 VerifiedBenue Property Hub · registered under Skyflexa Innovations RC: BN7819252 ·
+    &copy; 2025 VerifiedBenue Property Hub · registered under Skyflexa Innovations RC: BN7819252 
   </footer>
 
   <script>
-    // Simple animation after download button is clicked
     document.getElementById('downloadBtn').addEventListener('click', function () {
+      const originalText = this.textContent;
       this.textContent = '📥 Downloading...';
       this.style.backgroundColor = '#ccc';
       setTimeout(() => {
-        this.textContent = '📘 Download Now (PDF)';
-        this.style.backgroundColor = '#FFC845';
+        this.textContent = originalText;
+        this.style.backgroundColor = 'var(--gold)';
       }, 2500);
     });
   </script>
