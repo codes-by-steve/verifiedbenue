@@ -46,6 +46,41 @@
       margin: auto;
     }
 
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 90%;
+      margin: 2rem auto;
+    }
+
+    form input, form select {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    form button {
+      background-color: var(--gold);
+      color: black;
+      border: none;
+      padding: 0.9rem 1.5rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    form button:hover {
+      background-color: #e0ac30;
+    }
+
     .cta-button {
       background: var(--gold);
       color: #000;
@@ -59,6 +94,7 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       position: relative;
+      overflow: hidden;
     }
 
     .cta-button:hover {
@@ -66,18 +102,27 @@
       transform: scale(1.05);
     }
 
-    .cta-animation {
-      display: none;
-      margin-top: 1rem;
-      color: var(--green);
-      font-weight: bold;
-      font-size: 1rem;
-      animation: fadeIn 0.8s ease-in-out;
+    .cta-button.downloading {
+      background: var(--green);
+      color: white;
+      transform: scale(0.95);
+      pointer-events: none;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .cta-button.downloading::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
     }
 
     .section {
@@ -175,8 +220,7 @@
   </div>
 
   <div class="download-link">
-    <a id="downloadBtn" class="cta-button" href="#">📘 Click here to get your free PDF via WhatsApp</a>
-    <div class="cta-animation" id="animationText">Redirecting to WhatsApp...</div>
+    <a class="cta-button" href="free.pdf" download id="downloadBtn">📘 Click here to download PDF</a>
   </div>
 
   <section class="section">
@@ -192,7 +236,7 @@
 
   <div class="footer-cta">
     <p>Still have questions or want to speak directly?</p>
-    <a class="cta-button" href="https://wa.me/2348154105945" target="_blank">💬 Chat with Us on WhatsApp</a>
+    <a class="cta-button" href="https://wa.me/2348154105945?text=My%20name%20is%20.......I%20will%20like%20to%20see%20some%20of%20your%20listings%20of%20properties%20in%20Makurdi" target="_blank">💬 Chat with Us on WhatsApp</a>
   </div>
 
   <footer>
@@ -200,14 +244,28 @@
   </footer>
 
   <script>
-    document.getElementById('downloadBtn').addEventListener('click', function(event) {
-      event.preventDefault();
-      document.getElementById('animationText').style.display = 'block';
-
-      setTimeout(function() {
-        const message = encodeURIComponent("My name is ___ and I want my free copy of Verified Benue Land Buyer’s Guide.");
-        window.location.href = `https://wa.me/2348154105945?text=${message}`;
-      }, 1200);
+    document.getElementById('downloadBtn').addEventListener('click', function(e) {
+      const btn = this;
+      
+      // Add downloading animation
+      btn.classList.add('downloading');
+      btn.innerHTML = '⏳ Downloading...';
+      
+      // After download completes (simulated with timeout), redirect to WhatsApp
+      setTimeout(() => {
+        btn.innerHTML = '✅ Download Complete!';
+        
+        // Redirect to WhatsApp after a brief delay
+        setTimeout(() => {
+          window.open('https://wa.me/2348154105945?text=My%20name%20is%20.......I%20will%20like%20to%20see%20some%20of%20your%20listings%20of%20properties%20in%20Makurdi', '_blank');
+        }, 1000);
+        
+        // Reset button after redirect
+        setTimeout(() => {
+          btn.classList.remove('downloading');
+          btn.innerHTML = '📘 Click here to download PDF';
+        }, 2000);
+      }, 2000); // Simulates download time
     });
   </script>
 </body>
